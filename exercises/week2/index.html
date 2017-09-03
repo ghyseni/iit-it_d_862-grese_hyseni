@@ -1,66 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 
 <head>
-  <title>Simple HTML Page</title>
+  <title>Amazeriffic</title>
   <!-- <link href="https://necolas.github.io/normalize.css/7.0.0/normalize.css" rel="stylesheet" type="text/css" /> -->
   <link href="css/reset.css" rel="stylesheet" type="text/css" />
   <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"/>
 </head>
 
 <body>
   <header>
-
-  </header>
-  <main>
-    <div class="col-20 right">
-      <nav class="left">
-        <a href="#">Sign up</a>
-        <a href="#">FAQ</a>
-        <a href="#">Support</a>
+    <div class="container">
+      <h1 class="left col-50">Amazeriffic </h1>
+      <nav id="header-nav" class="left col-50">
+        <ul class="right">
+          <li><a href="#">Sign Up</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
       </nav>
     </div>
-    <div class="col-80 right">
-    <div class="left">
-      <h1>Amazerific will change your life!</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-      <h2>Duis aute irure dolor in reprehenderit</h2>
-      <ul>
-        <li> Item one</li>
-        <li> Item two</li>
-        <li> Item three</li>
-      </ul>
-      <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/10743-200.png" alt="Image" />
-    </div>
+  </header>
+  <main>
+    <div class="container">
+      <article class="col-80 left">
+        <h2>Amazeriffic will change your life!</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+        <h3>Here's why you need Amazeriffic</h3>
+        <ul>
+          <li> It fits your lifestyle</li>
+          <li> It's awesome</li>
+          <li> It rocks your world</li>
+        </ul>
+        <img src="images/idea.png" alt="Image" />
+      </article>
     </div>
   </main>
   <footer>
-    <div class="col-80 left">
-    <div class="left">
+    <div class="container">
+      <address class="left col-50">
       <p>
-        Contact us
+        Contact Us
       </p>
-      <p>
-        Amazeriffic!
-      </p>
-      <p>
-        555 Fifth Street
-      </p>
-    </div>
-    </div>
-    <div class="col-20 left">
-    <nav class="left">
-      <p>Sitemap</p>
       <ul>
-        <a href="#">
-          <li><a href="#"><a href="#">Home</a></li>
-          <li><a href="#"><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">FAQ</a></li>
+        <li>
+          Amazeriffic!
+        </li>
+        <li>
+          555 Fifth Street
+        </li>
+        <li>
+          Asheville, NC 28801
+        </li>
+        <li>
+          Tel:
+          <a href="tel:0000000000">
+          000-000-0000
+          </a>
+        </li>
       </ul>
-    </nav>
-  </div>
-
+      </address>
+      <nav id="footer-nav" class="left col-50">
+        <ul class="right">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Support</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </nav>
+    </div>
   </footer>
 </body>
 
