@@ -1,3 +1,8 @@
+/**
+* Page main js functionality
+* @param
+* @return
+**/
 var main = function() {
 
   var usedColors = [];
@@ -11,13 +16,18 @@ var main = function() {
       $(thisEl).fadeIn();
     }, 500);
   });
-}
+} 
 
 //Hide parapraph elements before document ready
 $(".relevant p").hide();
 
 $(document).ready(main);
 
+/**
+* Generates a random color
+* @param usedColors array of colors
+* @return Returns a random color in rgb format
+**/
 var generateNewRandomColor = function(usedColors) {
   var randColor;
   var colorR = Math.floor((Math.random() * 256));
