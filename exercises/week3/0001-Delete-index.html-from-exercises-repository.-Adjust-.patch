@@ -1,0 +1,84 @@
+From c03ff2085e90706a107965f190857bec8b232b6d Mon Sep 17 00:00:00 2001
+From: Grese Hyseni <ghyseni@hawk.iit.edu>
+Date: Wed, 30 Aug 2017 12:21:35 -0500
+Subject: [PATCH 1/1] Delete index.html from exercises repository. Adjust
+ style.
+
+---
+ exercises/index.html          | 37 -------------------------------------
+ exercises/week2/css/style.css |  5 ++---
+ 2 files changed, 2 insertions(+), 40 deletions(-)
+ delete mode 100644 exercises/index.html
+
+diff --git a/exercises/index.html b/exercises/index.html
+deleted file mode 100644
+index 3bd44d1..0000000
+--- a/exercises/index.html
++++ /dev/null
+@@ -1,37 +0,0 @@
+-<!DOCTYPE html>
+-<html>
+-
+-<head>Simple HTML Page</head>
+-
+-<body>
+-
+-  <nav>
+-    <a href="#">Sign up</a>
+-    <a href="#">FAQ</a>
+-    <a href="#">Support</a>
+-  </nav>
+-  <div>
+-  <h1>Something will change your life!</h1>
+-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+-
+-  <h2>Duis aute irure dolor in reprehenderit</h2>
+-  <ul>
+-    <li> Item one</li>
+-    <li> Item two</li>
+-    <li> Item three</li>
+-  </ul>
+-  <img src="https://d30y9cdsu7xlg0.cloudfront.net/png/10743-200.png" alt="Image"/>
+-<div>
+-  <footer>
+-  <p>Sitemap</p>
+-  <ul>
+-    <li>Home</li>
+-    <li>About</li>
+-    <li>Contact</li>
+-    <li>FAQ</li>
+-  </ul>
+-</footer>
+-
+-</body>
+-
+-</html>
+diff --git a/exercises/week2/css/style.css b/exercises/week2/css/style.css
+index a1cfeb9..b475cd7 100644
+--- a/exercises/week2/css/style.css
++++ b/exercises/week2/css/style.css
+@@ -1,5 +1,6 @@
+ body{
+   width:100%;
++    background-color: yellow;
+ }
+ *{
+   margin:0;
+@@ -13,13 +14,11 @@ h1{
+ main{
+   width:100%;
+   float:left;
+-  /*height:400px;*/
++    background-color: #fff;
+ }
+ footer{
+-  background-color: yellow;
+   width:100%;
+   float:left;
+-  height:500px;
+ }
+ footer nav{
+   padding:30px 0;
+-- 
+2.11.0
+
