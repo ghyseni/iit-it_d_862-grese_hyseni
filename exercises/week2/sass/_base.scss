@@ -1,0 +1,60 @@
+body {
+  width: 100%;
+  background-color: #eee;
+  font-family: 'Open Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 2em;
+  /*border: solid 1px crimson;*/
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.25em;
+}
+
+a {
+  color: #000;
+  text-decoration: underline;
+  line-height: 1.25em;
+}
+
+li {
+  line-height: 1.25em;
+}
+
+p {
+  line-height: 1.25em;
+}
+
+.col-20 {
+  width: 20%;
+}
+
+.col-50 {
+  width: 50%;
+}
+
+.col-80 {
+  width: 80%;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+.container{
+  width:1180px;
+  margin:0 auto;
+}
