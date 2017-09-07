@@ -35,8 +35,8 @@ function getThreeLargestNumbers(arrayList) {
 
 /**
  * Sorts a given array
- * @param arrayList An array of numbers
- * @return the sorted array in descending order
+ * @param arrayList - array of numbers
+ * @return sortedArray - the sorted array in descending order
  **/
 function sortArrayDesc(arrayList) {
 
