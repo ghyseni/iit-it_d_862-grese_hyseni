@@ -1,6 +1,7 @@
-var exampleArray = [31,20,5,6,4,21,40,7];
+var exampleArray = [31, 20, 5, 6, 4, 21, 40, 7];
 console.log("--array.js------------------------------------------------------------");
-console.log(getThreeLargestNumbers(exampleArray));
+console.log('Three/two largest numbers of array:' + arrayList);
+console.log(largestNumbers);
 
 /**
  * Finds the largest 3 numbers in an array of numbers
@@ -28,8 +29,6 @@ function getThreeLargestNumbers(arrayList) {
       largestNumbers[1] = sortedArray[1];
     }
 
-    console.log('Three/two largest numbers of array:' + arrayList);
-    console.log(largestNumbers);
   }
 }
 
