@@ -1,14 +1,15 @@
 /**
-* Page main js functionality
-* @param
-* @return
-**/
+ * Page main js functionality
+ * @param
+ * @return
+ **/
 var main = function() {
 
+  //Initialize variables
   var usedColors = [];
   var randColor;
 
- //Set a new different color for each child $(.relevant p) jquery object
+  //Set a new different color for each child $(.relevant p) jquery object
   $(".relevant p").each(function() {
     var thisEl = this;
     window.setTimeout(function() {
@@ -24,10 +25,10 @@ $(".relevant p").hide();
 
 $(document).ready(main);
 /**
-* Generates a random color
-* @param usedColors array of colors
-* @return Returns a random color in rgb format
-**/
+ * Generates a random color
+ * @param usedColors - array of colors that should not be skipped
+ * @return randColor - a random color in rgb format
+ **/
 var generateNewRandomColor = function(usedColors) {
   var randColor;
   var colorR = Math.floor((Math.random() * 256));
