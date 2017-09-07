@@ -5,8 +5,8 @@ console.log(getThreeLargestNumbers(exampleArray));
 /**
  * Finds the largest 3 numbers in an array of numbers
  * when the current array value is a number multiple of 3,5, or 3 & 5 respectivelly
- * @param arrayList An array of numbers
- * @return the largest number in the given array
+ * @param arrayList - array of numbers
+ * @return largestNumbers - array with the 3 largest numbers from the given array
  **/
 function getThreeLargestNumbers(arrayList) {
 
