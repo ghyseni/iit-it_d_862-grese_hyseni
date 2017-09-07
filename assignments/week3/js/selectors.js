@@ -8,6 +8,7 @@ var main = function() {
   var usedColors = [];
   var randColor;
 
+ //Set a new different color for each child $(.relevant p) jquery object
   $(".relevant p").each(function() {
     var thisEl = this;
     window.setTimeout(function() {
@@ -16,13 +17,12 @@ var main = function() {
       $(thisEl).fadeIn();
     }, 500);
   });
-} 
+}
 
 //Hide parapraph elements before document ready
 $(".relevant p").hide();
 
 $(document).ready(main);
-
 /**
 * Generates a random color
 * @param usedColors array of colors
