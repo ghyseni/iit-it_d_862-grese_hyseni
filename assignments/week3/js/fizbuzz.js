@@ -1,14 +1,5 @@
-/*
-    Write a function called fizzBuzz which given a range of numbers (i.e. fizzBuzz(1,100), but should accept any range) iterates over them and prints something for each item
-        If number is multiple of 3, then print Fizz
-        If number is multiple of 5, then print Buzz
-        If number is multiple of 3 & 5, then print FizzBuzz
-        If number does not satisfy any of the above, print the number
-    GRAD REQUIREMENT: Handle edge cases (i.e. start > end) and throw descriptive exception
-    GRAD REQUIREMENT: No code duplication – DRY
-
-*/
-
+//Call fizzBuzz function
+console.log("--fizzbuzz.js------------------------------------------------------------");
 fizzBuzz(1, 30);
 
 /**
