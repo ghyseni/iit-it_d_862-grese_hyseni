@@ -5,8 +5,8 @@ fizzBuzz(1, 30);
 /**
  * Iterates in the given array and prints Fizz, Buzz or FizzBuzz
  * when the current array value is a number multiple of 3,5, or 3 & 5 respectivelly
- * @param rangeStart the start of the range of integers i.e. 1
- * @param rangeEnd the start of the range of integers i.e. 100
+ * @param rangeStart - the start of the range of integers i.e. 1
+ * @param rangeEnd - the start of the range of integers i.e. 100
  * @return
  **/
 function fizzBuzz(rangeStart, rangeEnd) {
