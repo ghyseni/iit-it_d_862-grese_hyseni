@@ -1,4 +1,6 @@
-var exampleArray = [31, 20, 5, 6, 4, 21, 40, 7];
+var arrayList = [31, 20, 5, 6, 4, 21, 40, 7];
+var largestNumbers=max(arrayList);
+
 console.log("--array.js------------------------------------------------------------");
 console.log('Three/two largest numbers of array:' + arrayList);
 console.log(largestNumbers);
@@ -9,7 +11,7 @@ console.log(largestNumbers);
  * @param arrayList - array of numbers
  * @return largestNumbers - array with the 3 largest numbers from the given array
  **/
-function getThreeLargestNumbers(arrayList) {
+function max(arrayList) {
 
   //Validate arrayList, return if the given parameter is not an array
   if (!$.isArray(arrayList) && arrayList.length > 1) {
@@ -30,6 +32,7 @@ function getThreeLargestNumbers(arrayList) {
     }
 
   }
+  return largestNumbers;
 }
 
 /**
