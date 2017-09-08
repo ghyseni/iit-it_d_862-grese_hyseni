@@ -1,9 +1,54 @@
-var arrayList = [31, 20, 5, 6, 4, 21, 40, 7];
-var largestNumbers=max(arrayList);
+/**
+ * Page main js functionality
+ * @param
+ * @return
+ **/
+var main = function() {
 
-console.log("--array.js------------------------------------------------------------");
-console.log('Three/two largest numbers of array:' + arrayList);
-console.log(largestNumbers);
+  //Call fizzBuzz on button click
+  $('.show-result').on('click', function() {
+
+    var $p = $('<p>');
+
+    $('.result').html('');
+    var inputText = $('input.array').val();
+
+    //gerente an array by spliting the input value
+    var arrayList = inputText.split(',');
+    var invalidInput = false;
+    var $p = $('<p>');
+
+    //Validate input value
+    if (arrayList.length < 2) { //check if array length is 2
+      invalidInput = true;
+    }
+    //convert number characters to integer
+    $.each(arrayList, function(index, value) {
+      arrayList[index]=parseInt(value);
+      if (!$.isNumeric(value)) {
+        invalidInput = true;
+      }
+    });
+
+    if (invalidInput) {
+      alert("Input text is not valid. The correct format is: n1,n2,..,nn - where n1, n2,...,nn are numbers");
+    } else {
+      $p.text(max(arrayList));
+      $('.result').html($p);
+    }
+
+  });
+
+  //Trigger button click on enter press
+  $("input.array").on("keypress", function(event) {
+    if (event.keyCode === 13) {
+      $('.show-result')[0].click();
+    }
+  });
+
+}
+
+$(document).ready(main);
 
 /**
  * Finds the largest 3 numbers in an array of numbers
@@ -15,22 +60,21 @@ function max(arrayList) {
 
   //Validate arrayList, return if the given parameter is not an array
   if (!$.isArray(arrayList) && arrayList.length > 1) {
-    console.log("Given parameter should be an array");
-    return false;
+    return "Given parameter should be an array";
   }
   //Initialize function variables
   var sortedArray = sortArrayDesc(arrayList);
+
   if (sortedArray) {
     $.unique(sortedArray); //removing the duplicates, to avoid getting the same number
 
     var largestNumbers = [sortedArray[0]];
-    if (sortedArray.length >= 3) {
+    if (sortedArray.length == 2) {
+      largestNumbers[1] = sortedArray[1];
+    } else if (sortedArray.length > 2) {
       largestNumbers[1] = sortedArray[1];
       largestNumbers[2] = sortedArray[2];
-    } else if (sortedArray.length = 2) {
-      largestNumbers[1] = sortedArray[1];
     }
-
   }
   return largestNumbers;
 }
@@ -41,12 +85,9 @@ function max(arrayList) {
  * @return sortedArray - the sorted array in descending order
  **/
 function sortArrayDesc(arrayList) {
-
-
   //Validate arrayList, return if the given parameter is not an array
   if (arrayList.length <= 1) {
-    console.log("Given parameter should be an array of length larger than 1");
-    return false;
+    return "Given parameter should be an array of length larger than 1";
   }
 
   var temp; //serves to temporary keep the larger element value
@@ -57,7 +98,7 @@ function sortArrayDesc(arrayList) {
     var k = i; //serves to temporary keep the smaller element index value
 
     for (j = i + 1; j < sortedArray.length; j++) {
-      if (sortedArray[k] < sortedArray[j]) {
+      if (sortedArray[j] > sortedArray[k]) {
         k = j;
       }
     }
@@ -67,5 +108,6 @@ function sortArrayDesc(arrayList) {
     sortedArray[k] = temp;
 
   }
+
   return sortedArray;
 }
