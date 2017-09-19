@@ -44,27 +44,19 @@ var main = function() {
 
   //Set a new different color for each child $(.relevant p) jquery object
   var result = handAssessor(hand);
-
-  result.forEach(function(value, index) {
-    var $p = $('<p>').text(value);
-    $(".hand-result").append($p);
-  });
 }
 
 
 $(document).ready(main);
 /**
- * Generates a random color
+ * Recieves a set of 5 cards, validates each comparing to a predefined deck, and finds the matching poker hands
+ * Prints the hand recieved and the result
  * @param hand - an array of objects - 5 “cards” (i.e. [{"rank": "king","suit": "spades"},... ])
  * @return result - an array of strings that contains the matching poker hands
  **/
 var handAssessor = function(hand) {
   //set variable result initial value to false
   var result = [];
-
-  //clear pre results from html
-  $(".hand").html("");
-  $(".hand-result").html("");
 
   //Print initial hand
   console.log(hand);
@@ -164,6 +156,11 @@ var handAssessor = function(hand) {
   if (result.length == 0) {
     result.push(pokerHands.bust);
   }
+
+  result.forEach(function(value, index) {
+    var $p = $('<p>').text(value);
+    $(".hand-result").append($p);
+  });
 
   return result;
 }
