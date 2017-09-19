@@ -18,6 +18,7 @@ var pokerHands = {
  * @return
  **/
 var main = function() {
+  "use strict";
 
   //initialize hand for testing
   var hand = [{
