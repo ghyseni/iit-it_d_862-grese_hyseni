@@ -1,5 +1,5 @@
 var pokerHands = {
-  "high_card": "High card",
+  "bust": "Bust",
   "one_pair": "One pair",
   "two_pair": "Two pair",
   "three_kind": "Three of a kind",
@@ -7,6 +7,7 @@ var pokerHands = {
   "straight": "Straight",
   "flush": "Flush",
   "straight_flush": "Straight flush",
+  "royal_flush": "Royal flush",
   "full_house": "Full house"
 };
 
@@ -18,30 +19,30 @@ var pokerHands = {
 var main = function() {
 
   var hand = [{
-      "rank": "queen",
+      "rank": "ten",
       "suit": "spades"
     },
     {
-      "rank": "queen",
-      "suit": "spades"
+      "rank": "jack",
+      "suit": "hearts"
     },
     {
-      "rank": "queen",
+      "rank": "two",
       "suit": "spades"
     },
     {
       "rank": "ace",
-      "suit": "hearts"
+      "suit": "spades"
     },
     {
       "rank": "king",
-      "suit": "diamonds"
+      "suit": "spades"
     },
   ];
 
   //validate hand
-  var validatedHand=validateHand(hand);
-  if(!validatedHand){
+  var validatedHand = validateHand(hand);
+  if (!validatedHand) {
     var $p = $('<p>').text("Hand cards are not valid.");
     $(".hand-result").append($p);
     return;
@@ -160,6 +161,11 @@ var handAssessor = function(hand) {
     result.push(pokerHands.royal_flush);
     // result.splice(handRanks.indexOf(pokerHands.straight), 1);
     // result.splice(handRanks.indexOf(pokerHands.flush), 1);
+  }
+
+  //If no matching hand are found, print "Bust"
+  if (result.length == 0) {
+    result.push(pokerHands.bust);
   }
 
   return result;
