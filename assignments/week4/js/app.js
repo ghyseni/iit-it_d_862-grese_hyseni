@@ -1,3 +1,4 @@
+//Predefine poker Hands possible values
 var pokerHands = {
   "bust": "Bust",
   "one_pair": "One pair",
@@ -18,27 +19,48 @@ var pokerHands = {
  **/
 var main = function() {
 
+  //initialize hand for testing
   var hand = [{
+      "rank": "king",
+      "suit": "spades"
+    },
+    {
       "rank": "ten",
-      "suit": "spades"
-    },
-    {
-      "rank": "jack",
-      "suit": "hearts"
-    },
-    {
-      "rank": "two",
-      "suit": "spades"
-    },
-    {
-      "rank": "ace",
       "suit": "spades"
     },
     {
       "rank": "king",
       "suit": "spades"
     },
+    {
+      "rank": "king",
+      "suit": "spades"
+    },
+    {
+      "rank": "ten",
+      "suit": "spades"
+    },
   ];
+
+  //Set a new different color for each child $(.relevant p) jquery object
+  var result = handAssessor(hand);
+  result.forEach(function(value, index) {
+    var $p = $('<p>').text(value);
+    $(".hand-result").append($p);
+  });
+
+}
+
+
+$(document).ready(main);
+/**
+ * Generates a random color
+ * @param hand - an array of objects - 5 “cards” (i.e. [{"rank": "king","suit": "spades"},... ])
+ * @return result - an array of strings that contains the matching poker hands
+ **/
+var handAssessor = function(hand) {
+  //set variable result initial value to false
+  var result = [];
 
   //validate hand
   var validatedHand = validateHand(hand);
@@ -59,64 +81,30 @@ var main = function() {
   var $handP = $("<p>").text(handString);
   $(".hand").append($handP);
 
-  //Add another json propery rankIndex - this shows the ranking index by nubmber 0-12 (two - ace)
+  //Add another json propery rankIndex - this shows the ranking index by nubmber 0-12 (two - ace), helps for sorting
   hand = addRankIndexes(hand);
 
-  //Set a new different color for each child $(.relevant p) jquery object
-  var result = handAssessor(hand);
-  result.forEach(function(value, index) {
-    var $p = $('<p>').text(value);
-    $(".hand-result").append($p);
-  });
-
-}
-
-//Hide parapraph elements before document ready
-$(".relevant p").hide();
-
-$(document).ready(main);
-/**
- * Generates a random color
- * @param hand - an array of 5 “cards” (i.e. Card(rank, suit))
- * @return randColor - a random color in rgb format
- **/
-var handAssessor = function(hand) {
-  //set variable result initial value to false
-  var result = [];
-
-  //Add rank indexes
-  hand = addRankIndexes(hand);
-
-  //sort hand
+  //sort hand using the rankIndex
   hand.sort(compare);
 
-  //map array to a new array of ranks
-  var handRanks = hand.map(function(card) {
-    return card.rank;
-  });
-
-  //map array to a new array of ranks indexes
-  var handRankIndexes = hand.map(function(card) {
-    return card.rankIndex;
-  });
-
-  //map array to a new array of suits
-  var handSuits = hand.map(function(card) {
-    return card.suit;
-  });
 
   //Check if hand category is Flush
-  var flush = isFlush(handSuits);
+  var flush = isFlush(hand);
   if (flush) {
     result.push(pokerHands.flush);
   }
 
   //Check if hand category is Straight
-  var straight = isStraight(handRankIndexes);
+  var straight = isStraight(hand);
   if (straight) {
     result.push(pokerHands.straight);
   }
 
+
+  //map array to a new array of ranks
+  var handRanks = hand.map(function(card) {
+    return card.rank;
+  });
   //check if hand category is Pair (count=1), Two Pair, Three of a kind (count=3), Four of a kind (count==4)
   //using containsNTimes helper function
   handRanks.forEach(function(rank, index) {
@@ -124,20 +112,23 @@ var handAssessor = function(hand) {
       rank);
 
     if (countRanks > 1) {
-
       handRanks.splice(index, 1);
       handRanks.splice(handRanks.indexOf(rank), 1);
 
-      if (result.indexOf(pokerHands.one_pair) > -1) {
+      //Check if hand matches One Pair, if it's not the first time it's matching One Pair, then add Two Pair and remove One Pair
+      if (result.indexOf(pokerHands.one_pair) > -1 || result.indexOf(pokerHands.two_pair) > -1) {
         result.push(pokerHands.two_pair);
+        result.splice(result.indexOf(pokerHands.one_pair), 1);
       } else {
         result.push(pokerHands.one_pair);
       }
 
+      //Check if the hand contains the same item three times, add Three of the same kind
       if (countRanks == 3) {
         result.push(pokerHands.three_kind);
         handRanks.splice(handRanks.indexOf(rank), 1);
       }
+        //Check if the hand contains the same item four times, add Four of the same kind
       if (countRanks == 4) {
         result.push(pokerHands.four_kind);
         handRanks.splice(handRanks.indexOf(rank), 1);
@@ -153,14 +144,13 @@ var handAssessor = function(hand) {
   //Check if hand category is Straight Flush
   if (result.indexOf(pokerHands.straight) > -1 && result.indexOf(pokerHands.flush) > -1) {
     result.push(pokerHands.straight_flush);
-    // result.splice(handRanks.indexOf(pokerHands.straight), 1);
-    // result.splice(handRanks.indexOf(pokerHands.flush), 1);
+    result.splice(result.indexOf(pokerHands.straight), 1);
+    result.splice(result.indexOf(pokerHands.flush), 1);
   }
   //Check if hand category is Royal Flush
   if (result.indexOf(pokerHands.straight_flush) > -1 && hand[4].rankIndex == 12) {
     result.push(pokerHands.royal_flush);
-    // result.splice(handRanks.indexOf(pokerHands.straight), 1);
-    // result.splice(handRanks.indexOf(pokerHands.flush), 1);
+    result.splice(result.indexOf(pokerHands.straight_flush), 1);
   }
 
   //If no matching hand are found, print "Bust"
@@ -178,9 +168,14 @@ var handAssessor = function(hand) {
  * @return result - true if all items are the same; false if at least one is different
  *
  **/
-var isFlush = function(handSuits) {
+var isFlush = function(hand) {
   //set variable result initial value to true
   var result = true;
+
+  //map array to a new array of suits
+  var handSuits = hand.map(function(card) {
+    return card.suit;
+  });
 
   var firstValue = handSuits[0];
   handSuits.forEach(function(value, index) {
@@ -221,10 +216,15 @@ var containsNTimes = function(array, item) {
  * @return count - the number of times the item was found, 0 if not found
  *
  **/
-var isStraight = function(handRanks, item) {
+var isStraight = function(hand, item) {
 
   //set variable result initial value to true
   var result = true;
+
+  //map array to a new array of ranks indexes
+  var handRanks = hand.map(function(card) {
+    return card.rankIndex;
+  });
 
   //If fourth element is rankIndex 3 (five), then check if the fifth rankIndex is 12 (ace)
   //and if so, set ace rank to 0 (low ace)
