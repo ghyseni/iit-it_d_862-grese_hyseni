@@ -4,7 +4,6 @@ var pokerHands = {
   "two_pair": "Two pair",
   "three_kind": "Three of a kind",
   "four_kind": "Four of a kind",
-  "five_kind": "Five of a kind",
   "straight": "Straight",
   "flush": "Flush",
   "straight_flush": "Straight flush",
@@ -19,7 +18,11 @@ var pokerHands = {
 var main = function() {
 
   var hand = [{
-      "rank": "ace",
+      "rank": "queen",
+      "suit": "spades"
+    },
+    {
+      "rank": "queen",
       "suit": "spades"
     },
     {
@@ -28,17 +31,21 @@ var main = function() {
     },
     {
       "rank": "ace",
-      "suit": "spades"
-    },
-    {
-      "rank": "ace",
       "suit": "hearts"
     },
     {
-      "rank": "ten",
+      "rank": "king",
       "suit": "diamonds"
     },
   ];
+
+  //validate hand
+  var validatedHand=validateHand(hand);
+  if(!validatedHand){
+    var $p = $('<p>').text("Hand cards are not valid.");
+    $(".hand-result").append($p);
+    return;
+  }
 
   //print unsorted hand
   var handString = "";
@@ -134,11 +141,6 @@ var handAssessor = function(hand) {
         result.push(pokerHands.four_kind);
         handRanks.splice(handRanks.indexOf(rank), 1);
       }
-      if (countRanks == 4) {
-        result.push(pokerHands.five_kind);
-        handRanks.splice(handRanks.indexOf(rank), 1);
-      }
-
     }
   });
 
@@ -147,11 +149,17 @@ var handAssessor = function(hand) {
     result.push(pokerHands.full_house);
   }
 
-  //Check if hand category is Royal Flush
+  //Check if hand category is Straight Flush
   if (result.indexOf(pokerHands.straight) > -1 && result.indexOf(pokerHands.flush) > -1) {
     result.push(pokerHands.straight_flush);
-        // result.splice(handRanks.indexOf(pokerHands.straight), 1);
-        // result.splice(handRanks.indexOf(pokerHands.flush), 1);
+    // result.splice(handRanks.indexOf(pokerHands.straight), 1);
+    // result.splice(handRanks.indexOf(pokerHands.flush), 1);
+  }
+  //Check if hand category is Royal Flush
+  if (result.indexOf(pokerHands.straight_flush) > -1 && hand[4].rankIndex == 12) {
+    result.push(pokerHands.royal_flush);
+    // result.splice(handRanks.indexOf(pokerHands.straight), 1);
+    // result.splice(handRanks.indexOf(pokerHands.flush), 1);
   }
 
   return result;
@@ -237,6 +245,31 @@ var isStraight = function(handRanks, item) {
 }
 
 /**
+ * Validates hand cards using a predefined deck of cards
+ *
+ * @param hand - array of json objects containing hand of cards i.e. [("rank":"ten", "suit":"hearts"),{...},...]
+ * @return count - the number of times the item was found, 0 if not found
+ *
+ **/
+var validateHand = function(hand) {
+  //set initial result value to true
+  var result = true;
+
+  //Deck ranks in order
+  var deckValidRanks = ["two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king", "ace"];
+  var deckValidSuits = ["spades", "hearts", "diamonds", "clubs"];
+
+  //check each card rank and suit and search that rank/suit in the predefined arrays deckValidRanks,deckValidSuits
+  hand.forEach(function(card, index) {
+    if (deckValidRanks.indexOf(card.rank) === -1 || deckValidSuits.indexOf(card.suit) === -1) {
+      result = false;
+    }
+  });
+
+  return result;
+}
+
+/**
  * Add an order index for each card - uses a predefined deckRanks to get the rankIndex
  *
  * @param hand - array of json objects containing hand of cards i.e. [("rank":"ten", "suit":"hearts"),{...},...]
@@ -262,11 +295,11 @@ var addRankIndexes = function(hand) {
 }
 
 /**
-* used in the sort method - to sort an array
-* @param a - current array element
-* @param b - next array element
-* @return a.rankIndex-b.rankIndex - negative if b rank is higher tha a's, and viceversa
-*/
+ * used in the sort method - to sort an array
+ * @param a - current array element
+ * @param b - next array element
+ * @return a.rankIndex-b.rankIndex - negative if b rank is higher tha a's, and viceversa
+ */
 function compare(a, b) {
   return a.rankIndex - b.rankIndex;
 }
