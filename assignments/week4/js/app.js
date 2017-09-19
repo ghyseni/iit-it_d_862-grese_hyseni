@@ -79,6 +79,7 @@ var handAssessor = function(hand) {
   });
   var $handP = $("<p>").text(handString);
   $(".hand").append($handP);
+  $(".hand").append("------------------------------------------------------------------------------------------------------------------------------------");
 
   //Add another json propery rankIndex - this shows the ranking index by nubmber 0-12 (two - ace), helps for sorting
   hand = addRankIndexes(hand);
@@ -161,6 +162,7 @@ var handAssessor = function(hand) {
     var $p = $('<p>').text(value);
     $(".hand-result").append($p);
   });
+  $(".hand-result").append("------------------------------------------------------------------------------------------------------------------------------------" );
 
   return result;
 }
