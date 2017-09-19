@@ -44,11 +44,11 @@ var main = function() {
 
   //Set a new different color for each child $(.relevant p) jquery object
   var result = handAssessor(hand);
+
   result.forEach(function(value, index) {
     var $p = $('<p>').text(value);
     $(".hand-result").append($p);
   });
-
 }
 
 
@@ -61,6 +61,13 @@ $(document).ready(main);
 var handAssessor = function(hand) {
   //set variable result initial value to false
   var result = [];
+
+  //clear pre results from html
+  $(".hand").html("");
+  $(".hand-result").html("");
+
+  //Print initial hand
+  console.log(hand);
 
   //validate hand
   var validatedHand = validateHand(hand);
@@ -128,7 +135,7 @@ var handAssessor = function(hand) {
         result.push(pokerHands.three_kind);
         handRanks.splice(handRanks.indexOf(rank), 1);
       }
-        //Check if the hand contains the same item four times, add Four of the same kind
+      //Check if the hand contains the same item four times, add Four of the same kind
       if (countRanks == 4) {
         result.push(pokerHands.four_kind);
         handRanks.splice(handRanks.indexOf(rank), 1);
