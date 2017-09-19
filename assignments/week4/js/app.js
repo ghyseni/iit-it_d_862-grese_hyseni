@@ -31,12 +31,12 @@ var main = function() {
       "suit": "spades"
     },
     {
-      "rank": "queen",
-      "suit": "spades"
+      "rank": "ace",
+      "suit": "hearts"
     },
     {
       "rank": "ten",
-      "suit": "spades"
+      "suit": "diamonds"
     },
   ];
 
@@ -143,7 +143,7 @@ var handAssessor = function(hand) {
   });
 
   //Check if hand category is Full House=
-  if (result.indexOf(pokerHands.one_pair) > -1 && result.indexOf(pokerHands.three_kind) > -1) {
+  if (result.indexOf(pokerHands.two_pair) > -1 && result.indexOf(pokerHands.three_kind) > -1) {
     result.push(pokerHands.full_house);
   }
 
