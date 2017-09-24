@@ -30,15 +30,15 @@ var main = function() {
       "suit": "spades"
     },
     {
-      "rank": "king",
+      "rank": "jack",
       "suit": "spades"
     },
     {
-      "rank": "king",
+      "rank": "queen",
       "suit": "spades"
     },
     {
-      "rank": "ten",
+      "rank": "ace",
       "suit": "spades"
     },
   ];
@@ -163,7 +163,9 @@ var handAssessor = function(hand) {
     var $p = $('<p>').text(value);
     $(".hand-result").append($p);
   });
-  $(".hand-result").append("------------------------------------------------------------------------------------------------------------------------------------" );
+  $(".hand-result").append("------------------------------------------------------------------------------------------------------------------------------------");
+
+  console.log(result);
 
   return result;
 }
@@ -268,15 +270,28 @@ var validateHand = function(hand) {
   //set initial result value to true
   var result = true;
 
+  //array to use for checking duplicates
+  var prevCardsSuits = [];
+  var prevCardsRanks = [];
+  var indexPrevCardRank = -1;
+
   //Deck ranks in order
   var deckValidRanks = ["two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "jack", "queen", "king", "ace"];
   var deckValidSuits = ["spades", "hearts", "diamonds", "clubs"];
 
-  //check each card rank and suit and search that rank/suit in the predefined arrays deckValidRanks,deckValidSuits
+
   hand.forEach(function(card, index) {
+    //check each card rank and suit and search that rank/suit in the predefined arrays deckValidRanks,deckValidSuits
     if (deckValidRanks.indexOf(card.rank) === -1 || deckValidSuits.indexOf(card.suit) === -1) {
       result = false;
     }
+    //check for duplicates
+    indexPrevCardRank = prevCardsRanks.indexOf(card.rank);
+    if (indexPrevCardRank > -1 && (card.suit === prevCardsSuits[indexPrevCardRank])) {
+      result = false;
+    }
+    prevCardsSuits.push(card.suit);
+    prevCardsRanks.push(card.rank);
   });
 
   return result;
