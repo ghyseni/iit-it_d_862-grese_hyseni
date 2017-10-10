@@ -25,7 +25,7 @@ var PokerHand = mongoose.model('PokerHand', {
 
  	var pokerHand = new PokerHand();
  	pokerHand.cards = req.body;
-   
+ 
  	pokerHand.save().then(function(doc){
  		res.status(200);
  		res.json({
@@ -63,7 +63,7 @@ app.get("/hands/:handId", function(req, res) {
  * Return 404 error if hand not found
  */
 app.get("/hands/:handId/cards", function(req, res) {
-  Hand.findById({
+  PokerHand.findById({
     _id: req.params.handId
   }, 'cards').then(function(hand) {
     res.send(hand.cards);
@@ -74,7 +74,6 @@ app.get("/hands/:handId/cards", function(req, res) {
     });
   });
 });
-
 
 /*
  * Update hand by hand Id
@@ -99,9 +98,9 @@ app.put('/hands/:handId', function(req, res) {
   });
 });
 
-
+/* Connect to local server */
 app.listen(port, function() {
   console.log(`Started and running on port: ${port}`);
 });
-
+/* Connect mongoose */
 mongoose.connect('mongodb://localhost:27017/PokerHand');
