@@ -25,7 +25,7 @@ var PokerHand = mongoose.model('Hand', {
 
  	var pokerHand = new PokerHand();
  	pokerHand.cards = req.body;
-   
+
  	pokerHand.save().then(function(doc){
  		res.status(200);
  		res.json({
