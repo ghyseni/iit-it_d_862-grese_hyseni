@@ -13,6 +13,22 @@ var Hand = mongoose.model('Hand',{
 	}
 });
 
+/*
+* Add new hand json object and save it to db on Post request
+* Return 200 status if hand is added succesfully
+* Otherwise, return the error
+*/
+app.post('/hands',function(req,res){
+	var hand = new Hand();
+	hand.cards = req.body;
+	hand.save().then(function(doc){
+		res.status(200);
+		res.json({status:200,id:doc._id})
+	},function(err){
+		res.send(err);
+	});
+});
+
 
 
 app.listen(port,function(){
