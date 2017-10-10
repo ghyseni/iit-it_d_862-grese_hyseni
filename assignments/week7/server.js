@@ -30,15 +30,28 @@ app.post('/hands',function(req,res){
 });
 
 /*
-* Get hand json object by giving the id to url
+* Get json object containing hand id and hand object, by giving the id routing parameter to url
 * Return 200 status if hand is found
 * Otherwise, return 404 and error
 */
 app.get("/hands/:handId",function(req,res){
 	Hand.findById(req.params.handId).then(function(hand){
-		res.send({id: hand._id, cards: hand.cards});
+		res.send({"id": hand._id, "cards": hand.cards});
 	},function(err){
 		res.status(404).send({"status":404,"error":err});
+	});
+});
+
+/*
+* Get json object containing hand object cards, by giving the id routing parameter to url
+* Return 200 status if hand is found
+* Otherwise, return 404 and error
+*/
+app.get("/hands/:handId/cards",function(req,res){
+	 Hand.findById({_id:req.params.handId},'cards').then(function(hand){
+	 res.send(hand.cards);
+	},function(err){
+	 res.status(404).send({"status":404});
 	});
 });
 
