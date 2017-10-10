@@ -10,7 +10,7 @@ var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 /* Create the hand model/schema */
-var PokerHand = mongoose.model('Hand', {
+var PokerHand = mongoose.model('PokerHand', {
   cards: {
     type: []
   }
