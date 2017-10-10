@@ -1,13 +1,16 @@
 var express = require("express"),
   http = require("http"),
-  app = express();
+  app = express(),
+	bodyParser = require('body-parser');
 const port = 3000;
+
+app.use(bodyParser.json());
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 /* Create the hand model/schema */
-var Hand = mongoose.model('Hand', {
+var PokerHand = mongoose.model('Hand', {
   cards: {
     type: []
   }
@@ -18,19 +21,23 @@ var Hand = mongoose.model('Hand', {
  * Return 200 status if hand is added succesfully
  * Otherwise, return the error
  */
-app.post('/hands', function(req, res) {
-  var hand = new Hand();
-  hand.cards = req.body;
-  hand.save().then(function(doc) {
-    res.status(200);
-    res.json({
-      "status": 200,
-      "id": doc._id
-    })
-  }, function(err) {
-    res.send(err);
-  });
-});
+ app.post('/hands',function(req,res){
+
+ 	var pokerHand = new PokerHand();
+ 	pokerHand.cards = req.body;
+   
+ 	pokerHand.save().then(function(doc){
+ 		res.status(200);
+ 		res.json({
+			"status":200,
+			"id":doc._id
+		})
+
+ 	},function(err){
+ 		res.send(err);
+ 	});
+
+ });
 
 /*
  * Get json object containing hand id and hand object, by giving the id routing parameter to url
@@ -38,7 +45,7 @@ app.post('/hands', function(req, res) {
  * Return 404 error if hand not found
  */
 app.get("/hands/:handId", function(req, res) {
-  Hand.findById(req.params.handId).then(function(hand) {
+  PokerHand.findById(req.params.handId).then(function(hand) {
     res.send({
       "id": hand._id,
       "cards": hand.cards
@@ -74,7 +81,7 @@ app.get("/hands/:handId/cards", function(req, res) {
  * Return 404 error if hand not found
  */
 app.put('/hands/:handId', function(req, res) {
-  Hand.update({
+  PokerHand.update({
     _id: req.params.handId
   }, {
     $set: {
