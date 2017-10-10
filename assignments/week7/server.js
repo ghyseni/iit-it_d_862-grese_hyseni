@@ -96,3 +96,5 @@ app.put('/hands/:handId', function(req, res) {
 app.listen(port, function() {
   console.log(`Started and running on port: ${port}`);
 });
+
+mongoose.connect('mongodb://localhost:27017/PokerHand');
