@@ -175,7 +175,32 @@ app.delete("/users/:userId/", function(req, res) {
 });
 
 app.delete("/users/:userId/reminders/:reminderId", function(req, res) {
-
+  User.findById(req.params.userId, function(err, user) {
+    if (err) {
+      res.status(404).send({
+        "status": 404,
+        "error": err.message
+      });
+      console.error(err);
+    } else {
+      user.reminder.pull(req.params.reminderId);
+      user.save(function(err, user) {
+        if (err) {
+          res.status(404).send({
+            "status": 404,
+            "error": err.message
+          });
+          console.error(err);
+        } else if (user) {
+          res.send(user.reminder);
+        } else {
+          res.status(404).send({
+            "status": 404,
+          });
+        }
+      });
+    }
+  })
 });
 
 
