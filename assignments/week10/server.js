@@ -19,6 +19,23 @@ db.on("error", console.error.bind(console, "Connection error:"));
 // we"re connected!
 console.log("Connection successfull!");
 
+//reminder schema declaration
+var reminderchema = mongoose.Schema({
+  title: String,
+  description: String,
+  created: String
+});
+
+//user schema declaration
+var userSchema = mongoose.Schema({
+  name: String,
+  email: String,
+  reminder: [reminderchema]
+});
+
+//Model user based on user schema
+var User = mongoose.model("User", userSchema);
+
 
 /* Connect to local server */
 app.listen(port, function() {
