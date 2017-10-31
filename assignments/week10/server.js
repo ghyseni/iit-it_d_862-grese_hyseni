@@ -88,7 +88,23 @@ app.get("/users/:userId/reminders/", function(req, res) {
 });
 
 app.get("/users/:userId/reminders/:reminderId", function(req, res) {
-
+  User.findById(req.params.userId,
+    function(err, user) {
+      if (err) {
+        res.status(404).send({
+          "status": 404,
+          "error": err.message
+        });
+        console.error(err);
+      } else {
+        var reminder = user.reminder.id(req.params.reminderId);
+        res.send({
+          "title": reminder.title,
+          "description": reminder.description,
+          "created": reminder.created
+        });
+      }
+    })
 });
 
 app.post("/users", function(req, res) {
