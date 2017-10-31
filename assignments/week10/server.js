@@ -7,10 +7,11 @@ var express = require("express"),
 // parse application/json
 app.use(bodyParser.json());
 
-const port = 3000;
+const port = process.env.PORT || 3000;
+var mongoUri = process.env.MONGOLAB_URI || "mongodb://localhost:27017/User";
 
 /* Connect mongoose */
-mongoose.connect("mongodb://localhost:27017/User");
+mongoose.connect(mongoUri);
 var db = mongoose.connection
 
 // get notified if we connect successfully or if a connection error occurs:
