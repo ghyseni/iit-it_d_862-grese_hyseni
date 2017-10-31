@@ -126,6 +126,7 @@ app.post("/users", function(req, res) {
 });
 
 app.post("/users/:userId/reminders", function(req, res) {
+
   var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
   var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
   var newReminder = {
@@ -143,6 +144,7 @@ app.post("/users/:userId/reminders", function(req, res) {
       console.error(err);
     } else {
       var reminder = user.reminder.create(newReminder);
+      user.reminder.push(reminder);
       user.save(function(err, user) {
         if (err) {
           res.status(404).send({
