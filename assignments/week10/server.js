@@ -37,6 +37,35 @@ var userSchema = mongoose.Schema({
 var User = mongoose.model("User", userSchema);
 
 
+app.get("/users/:userId", function(req, res) {
+
+});
+
+app.get("/users/:userId/reminders/", function(req, res) {
+
+});
+
+app.get("/users/:userId/reminders/:reminderId", function(req, res) {
+
+});
+
+app.post("/users", function(req, res) {
+
+});
+
+app.post("/users/:userId/reminders", function(req, res) {
+
+});
+
+app.delete("/users/:userId/", function(req, res) {
+
+});
+
+app.delete("/users/:userId/reminders/:reminderId", function(req, res) {
+
+});
+
+
 /* Connect to local server */
 app.listen(port, function() {
   console.log(`Started and running on port: ${port}`);
