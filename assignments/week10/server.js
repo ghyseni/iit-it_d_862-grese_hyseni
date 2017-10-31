@@ -59,7 +59,32 @@ app.get("/users/:userId", function(req, res) {
 });
 
 app.get("/users/:userId/reminders/", function(req, res) {
-
+  var query = {
+    "_id": req.params.userId
+  };
+  if (req.query.title) {
+    query = {
+      "_id": req.params.userId,
+      "reminder.title": req.query.title
+    };
+  }
+  User.findOne(query,
+    "reminder.title reminder.description reminder.created", query,
+    function(err, user) {
+      if (err) {
+        res.status(404).send({
+          "status": 404,
+          "error": err.message
+        });
+        console.error(err);
+      } else if (user) {
+        res.send(user.reminder);
+      } else {
+        res.status(404).send({
+          "status": 404,
+        });
+      }
+    })
 });
 
 app.get("/users/:userId/reminders/:reminderId", function(req, res) {
