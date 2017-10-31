@@ -1,0 +1,32 @@
+{
+  "name": "week10",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": "8.4.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "4.16.2",
+    "mongodb": "^2.2.31",
+    "mongoose": "^4.12.5"
+  },
+  "devDependencies": {
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ghyseni/iit-it_d_862-grese_hyseni.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ]
+}
