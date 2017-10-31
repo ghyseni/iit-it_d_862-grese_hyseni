@@ -159,7 +159,19 @@ app.post("/users/:userId/reminders", function(req, res) {
 });
 
 app.delete("/users/:userId/", function(req, res) {
-
+  User.remove({
+    _id: req.params.userId
+  }, function(err, user) {
+    if (err) {
+      res.status(404).send({
+        "status": 404,
+        "error": err.message
+      });
+      console.error(err);
+    } else {
+      res.send(user);
+    }
+  })
 });
 
 app.delete("/users/:userId/reminders/:reminderId", function(req, res) {
