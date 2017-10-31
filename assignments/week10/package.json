@@ -1,11 +1,11 @@
 {
-  "name": "week10",
+  "name": "itd-862-assignment6",
   "version": "1.0.0",
   "description": "",
   "engines": {
-    "node": "8.4.0"
+    "node": "8.3.0"
   },
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -14,7 +14,8 @@
     "body-parser": "^1.18.2",
     "express": "4.16.2",
     "mongodb": "^2.2.31",
-    "mongoose": "^4.12.5"
+    "mongoose": "^4.12.5",
+    "node": "^8.3.0"
   },
   "devDependencies": {
     "request": "^2.81.0",

@@ -60,17 +60,14 @@ app.get("/users/:userId", function(req, res) {
 });
 
 app.get("/users/:userId/reminders/", function(req, res) {
+
+  console.log(req.query.title);
   var query = {
     "_id": req.params.userId
   };
-  if (req.query.title) {
-    query = {
-      "_id": req.params.userId,
-      "reminder.title": req.query.title
-    };
-  }
-  User.findOne(query,
-    "reminder.title reminder.description reminder.created", query,
+
+  User.findById(req.params.userId,
+    "reminder.title reminder.description reminder.created",
     function(err, user) {
       if (err) {
         res.status(404).send({
@@ -79,7 +76,13 @@ app.get("/users/:userId/reminders/", function(req, res) {
         });
         console.error(err);
       } else if (user) {
-        res.send(user.reminder);
+        reminder = user.reminder;
+        if (req.query.title) {
+          var reminder = user.reminder.filter(function(reminder) {
+            return reminder.title === req.query.title;
+          }).pop();
+        }
+        res.send(reminder);
       } else {
         res.status(404).send({
           "status": 404,
@@ -99,27 +102,33 @@ app.get("/users/:userId/reminders/:reminderId", function(req, res) {
         console.error(err);
       } else {
         var reminder = user.reminder.id(req.params.reminderId);
-        res.send({
-          "title": reminder.title,
-          "description": reminder.description,
-          "created": reminder.created
-        });
+        if (reminder) {
+          res.send({
+            "title": reminder.title,
+            "description": reminder.description,
+            "created": reminder.created
+          });
+        } else {
+          res.status(404).send({
+            "status": 404,
+          });
+        }
       }
     })
 });
 
 app.post("/users", function(req, res) {
 
-  if(!req.body.name || !req.body.email){
-      res.send({
-        "message":"Name and Email should not be empty."
-      });
-      return 0;
+  if (!req.body.user.name || !req.body.user.email) {
+    res.send({
+      "message": "Name and Email should not be empty."
+    });
+    return 0;
   }
 
   var newUser = new User({
-    name: req.body.name,
-    email: req.body.email
+    name: req.body.user.name,
+    email: req.body.user.email
   });
   newUser.save(function(err, user) {
     if (err) {
@@ -129,7 +138,9 @@ app.post("/users", function(req, res) {
       });
       console.error(err);
     } else {
-      res.send(user);
+      res.send({
+        "id": user._id
+      });
     }
   });
 });
@@ -139,16 +150,16 @@ app.post("/users/:userId/reminders", function(req, res) {
   var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
   var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
 
-  if(!req.body.title || !req.body.description){
-      res.send({
-        "message":"Title and Description should not be empty."
-      });
-      return 0;
+  if (!req.body.reminder.title || !req.body.reminder.description) {
+    res.send({
+      "message": "Title and Description should not be empty."
+    });
+    return 0;
   }
 
   var newReminder = {
-    title: req.body.title,
-    description: req.body.description,
+    title: req.body.reminder.title,
+    description: req.body.reminder.description,
     created: localISOTime
   };
 
@@ -170,7 +181,9 @@ app.post("/users/:userId/reminders", function(req, res) {
           });
           console.error(err);
         } else {
-          res.send(reminder);
+          res.send({
+            "id": reminder._id
+          });
         }
       });
     }
@@ -188,7 +201,9 @@ app.delete("/users/:userId/", function(req, res) {
       });
       console.error(err);
     } else {
-      res.send(user);
+      res.status(204).send({
+        "status": 204,
+      });
     }
   })
 });
@@ -211,7 +226,9 @@ app.delete("/users/:userId/reminders/:reminderId", function(req, res) {
           });
           console.error(err);
         } else if (user) {
-          res.send(user.reminder);
+          res.status(204).send({
+            "status": 204,
+          });
         } else {
           res.status(404).send({
             "status": 404,
