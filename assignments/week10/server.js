@@ -129,6 +129,14 @@ app.post("/users/:userId/reminders", function(req, res) {
 
   var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
   var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
+
+  if(!req.body.title || !req.body.description){
+      res.send({
+        "message":"Title and Description should not be empty."
+      });
+      return 0;
+  }
+
   var newReminder = {
     title: req.body.title,
     description: req.body.description,
