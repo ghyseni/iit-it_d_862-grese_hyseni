@@ -108,6 +108,14 @@ app.get("/users/:userId/reminders/:reminderId", function(req, res) {
 });
 
 app.post("/users", function(req, res) {
+
+  if(!req.body.name || !req.body.email){
+      res.send({
+        "message":"Name and Email should not be empty."
+      });
+      return 0;
+  }
+
   var newUser = new User({
     name: req.body.name,
     email: req.body.email
