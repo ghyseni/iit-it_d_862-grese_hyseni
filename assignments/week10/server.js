@@ -126,7 +126,36 @@ app.post("/users", function(req, res) {
 });
 
 app.post("/users/:userId/reminders", function(req, res) {
+  var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+  var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
+  var newReminder = {
+    title: req.body.title,
+    description: req.body.description,
+    created: localISOTime
+  };
 
+  User.findById(req.params.userId, function(err, user) {
+    if (err) {
+      res.status(404).send({
+        "status": 404,
+        "error": err.message
+      });
+      console.error(err);
+    } else {
+      var reminder = user.reminder.create(newReminder);
+      user.save(function(err, user) {
+        if (err) {
+          res.status(404).send({
+            "status": 404,
+            "error": err.message
+          });
+          console.error(err);
+        } else {
+          res.send(reminder);
+        }
+      });
+    }
+  });
 });
 
 app.delete("/users/:userId/", function(req, res) {
