@@ -38,7 +38,24 @@ var User = mongoose.model("User", userSchema);
 
 
 app.get("/users/:userId", function(req, res) {
-
+  User.findById(req.params.userId, "name email", function(err, user) {
+    if (err) {
+      res.status(404).send({
+        "status": 404,
+        "error": err.message
+      });
+      console.error(err);
+    } else if (user) {
+      res.send({
+        "name": user.name,
+        "email": user.email
+      });
+    } else {
+      res.status(404).send({
+        "status": 404,
+      });
+    }
+  })
 });
 
 app.get("/users/:userId/reminders/", function(req, res) {
