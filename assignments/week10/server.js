@@ -108,7 +108,21 @@ app.get("/users/:userId/reminders/:reminderId", function(req, res) {
 });
 
 app.post("/users", function(req, res) {
-
+  var newUser = new User({
+    name: req.body.name,
+    email: req.body.email
+  });
+  newUser.save(function(err, user) {
+    if (err) {
+      res.status(404).send({
+        "status": 404,
+        "error": err.message
+      });
+      console.error(err);
+    } else {
+      res.send(user);
+    }
+  });
 });
 
 app.post("/users/:userId/reminders", function(req, res) {
