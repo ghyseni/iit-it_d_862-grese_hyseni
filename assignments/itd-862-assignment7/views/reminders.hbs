@@ -26,6 +26,11 @@
             <td colspan="3">No reminders found</td>
           </tr>
       {{/each}}
+      <tr id="item-{{this._id}}" class="item" data-id="{{this._id}}">
+        <td colspan="3">
+          <button class="btn btn-secondary delete-reminders ml-2">Delete all</button>
+        </td>
+      </tr>
     </tbody>
   </table>
 

@@ -29,6 +29,11 @@ var main = function() {
     var userId = $(this).closest(".items").data("userid");
     removeReminder(userId, reminderId);
   });
+  $(document).on('click', '.delete-reminders', function(e) {
+    e.preventDefault();
+    var userId = $(this).closest(".items").data("userid");
+    removeReminders(userId);
+  });
 }
 
 function addUser(user) {
@@ -86,6 +91,17 @@ function removeReminder(userId, reminderId) {
     type: 'DELETE',
     success: function(result) {
       $('#item-' + reminderId).remove();
+    }
+  });
+}
+
+function removeReminders(userId, reminderId) {
+  $.ajax({
+    url: '/users/' + userId + '/reminders/',
+    type: 'DELETE',
+    success: function(result) {
+      $('.item').remove();
+      $('.items').append('<tr class="not-found"><td colspan="3">No reminders found</td></tr>');
     }
   });
 }

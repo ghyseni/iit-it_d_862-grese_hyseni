@@ -203,5 +203,33 @@ UsersController.destroyReminder = function(req, res) {
     }
   })
 };
+// Update an existing user
+UsersController.destroyReminders = function(req, res) {
+  User.findById(req.params.userId, function(err, user) {
+    if (err) {
+      res.status(404).send({
+        "status": 404,
+        "error": err.message
+      });
+      console.error(err);
+    } else {
+      user.reminder=[];
+      user.save(function(err, user) {
+        if (err) {
+          res.status(404).send({
+            "status": 404,
+            "error": err.message
+          });
+        } else if (user) {
+          res.send(user.reminder);
+        } else {
+          res.status(404).send({
+            "status": 404,
+          });
+        }
+      });
+    }
+  })
+};
 
 module.exports = UsersController;

@@ -46,7 +46,7 @@ app.del("/users/:userId", usersController.destroy);
 app.get("/users/:userId/reminders/", usersController.showReminders);
 app.get("/users/:userId/reminders/:reminderId", usersController.showReminder);
 app.post("/users/:userId/reminders/", usersController.createReminder);
-// app.put("/users/:username/todos/:id", usersController.update);
+app.del("/users/:userId/reminders/", usersController.destroyReminders);
 app.del("/users/:userId/reminders/:reminderId", usersController.destroyReminder);
 
 
