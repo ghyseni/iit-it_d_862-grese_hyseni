@@ -1,0 +1,56 @@
+<a href="../{{user.id}}" title="User" class="btn btn-link py-4 px-0">Go back</a>
+<div class="mx-auto">
+
+  <h3>Reminders for {{user.name}}</h3>
+  <table class="table table-light items" data-userid="{{user._id}}">
+    <thead>
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each reminder}}
+        <tr id="item-{{this._id}}" class="item" data-id="{{this._id}}">
+          <td>{{this.title}}</td>
+          <td>{{this.description}}</td>
+          <td>
+            <a href="reminders/{{this._id}}" class="btn btn-primary">View</a>
+            <button class="btn btn-secondary delete-reminder ml-2">Delete</button>
+          </td>
+        </tr>
+        {{else}}
+          <tr class="not-found">
+            <td colspan="3">No reminders found</td>
+          </tr>
+      {{/each}}
+    </tbody>
+    {{#if reminder}}
+      <tfoot>
+        <tr id="item-{{this._id}}" class="item" data-id="{{this._id}}">
+          <td colspan="3">
+            <button class="btn btn-secondary delete-reminders ml-2">Delete all</button>
+          </td>
+        </tr>
+      </tfoot>
+    {{/if}}
+  </table>
+
+</div>
+<div style="width:400px; " class="mt-4">
+  <h4>Add new reminder</h4>
+  <form action="../{{user._id}}/reminders" method="post">
+    <input type="hidden" name="userId" value="{{user._id}}" />
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input required type="text" id="title" class="form-control" name="title">
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" class="form-control" name="description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary add-reminder">Add</button>
+  </form>
+</div>

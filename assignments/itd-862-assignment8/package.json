@@ -1,0 +1,39 @@
+{
+  "name": "itd-862-assignment6",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": "8.3.0"
+  },
+  "main": "server.js",
+  "scripts": {
+    "start": "SET NODE_ENV=dev && node server.js",
+    "test": "mocha --timeout 10000"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "config": "^1.20.1",
+    "express": "4.16.2",
+    "express-handlebars": "^3.0.0",
+    "mongodb": "^2.2.31",
+    "mongoose": "^4.12.5",
+    "morgan": "^1.9.0",
+    "node": "^8.3.0"
+  },
+  "devDependencies": {
+    "request": "^2.81.0",
+    "tape": "^4.7.0",
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^2.4.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ghyseni/iit-it_d_862-grese_hyseni.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ]
+}

@@ -1,0 +1,16 @@
+<a href="../reminders" title="Reminders" class="btn btn-link px-0 py-4">Go back</a>
+<div class="mx-auto reminder">
+  {{#if reminder}}
+    <h2>Reminder details</h2>
+    <div id="item-{{reminder._id}}" class="list-group-item flex-column align-items-start items item" data-userid="{{userId}}" data-id="{{reminder._id}}">
+      <div class="d-flex w-100 justify-content-between">
+        <h4 class="mb-1"> {{reminder.title}}</h4>
+        <time class="text-muted">{{reminder.created}}</time>
+      </div>
+      <p class="mb-1">{{reminder.description}}</p>
+      <button data-reminderId="{{this._id}}" class="btn btn-secondary mt-4 delete-reminder">Delete</button>
+    </div>
+  {{else}}
+    <h2>Reminder not found</h2>
+  {{/if}}
+</div>
